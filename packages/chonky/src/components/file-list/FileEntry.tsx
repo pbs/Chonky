@@ -80,5 +80,7 @@ const useStyles = makeGlobalChonkyStyles(() => ({
         outline: 'none !important',
         position: 'relative',
         height: '100%',
+        backgroundColor: '#F7F8FB',
+        borderRadius: 12
     },
 }));

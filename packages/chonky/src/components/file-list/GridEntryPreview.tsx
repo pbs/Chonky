@@ -42,15 +42,17 @@ export const GridEntryPreviewFolder: React.FC<FileEntryPreviewProps> = React.mem
     });
     return (
         <div className={className}>
-            <div className={folderClasses.folderBackSideMid}>
-                <div className={folderClasses.folderBackSideTop} />
-                <div className={folderClasses.folderFrontSide}>
-                    <GridEntryDndIndicator className={fileClasses.dndIndicator} dndState={dndState} />
-                    <div className={c([fileClasses.fileIcon, folderClasses.fileIcon])}>{entryState.childrenCount}</div>
-                    <div className={commonClasses.selectionIndicator}></div>
-                    <FileThumbnail className={fileClasses.thumbnail} thumbnailUrl={entryState.thumbnailUrl} />
-                </div>
-            </div>
+            <div className={commonClasses.selectionIndicator}></div>
+            <div className={folderClasses.filerFolderIcon}></div>
+            {/* <div className={folderClasses.folderBackSideMid}> */}
+                {/* <div className={folderClasses.folderBackSideTop} /> */}
+                {/* <div className={folderClasses.folderFrontSide}> */}
+                    {/* <GridEntryDndIndicator className={fileClasses.dndIndicator} dndState={dndState} /> */}
+                    {/* <div className={c([fileClasses.fileIcon, folderClasses.fileIcon])}>{entryState.childrenCount}</div> */}
+                    {/* <div className={commonClasses.selectionIndicator}></div> */}
+                    {/* <FileThumbnail className={fileClasses.thumbnail} thumbnailUrl={entryState.thumbnailUrl} /> */}
+                {/* </div> */}
+            {/* </div> */}
         </div>
     );
 });
@@ -125,7 +127,14 @@ const useFolderStyles = makeLocalChonkyStyles(theme => ({
     },
     fileIcon: {
         fontSize: important(theme.gridFileEntry.childrenCountSize),
+        color: '#2B7DBC'
     },
+    filerFolderIcon: {
+        width: 61,
+        height: 50,
+        margin: '10px 0 0 10px',
+        backgroundImage: "url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjIiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA2MiA1MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTU1LjAyMTcgNi41NTcwOEgzOC4wNTYzQzM3LjI2MDEgNi41NTM2NyAzNi40OTcyIDYuMjMyNjQgMzUuOTMxOSA1LjY2MzE5TDMxLjYyMjIgMS4yODYyMkMzMS4wNTY5IDAuNzE2NzcyIDMwLjI5NCAwLjM5NTczOSAyOS40OTc4IDAuMzkyMzM0SDYuNDYyNDhDMy4xMTAxNyAwLjM5MjMzNCAwLjM5MjU3OCAzLjE1MjM4IDAuMzkyNTc4IDYuNTU3MDhWNDMuNTQ1NUMwLjM5MjU3OCA0Ni45NTAyIDMuMTEwMTcgNDkuNzEwMyA2LjQ2MjQ4IDQ5LjcxMDNINTUuMDIxN0M1OC4zNzQgNDkuNzEwMyA2MS4wOTE2IDQ2Ljk1MDIgNjEuMDkxNiA0My41NDU1VjEyLjcyMThDNjEuMDkxNiA5LjMxNzEzIDU4LjM3NCA2LjU1NzA4IDU1LjAyMTcgNi41NTcwOFoiIGZpbGw9IiMyQjdEQkMiLz4KPC9zdmc+Cg==);",
+    }
 }));
 
 export const GridEntryPreviewFile: React.FC<FileEntryPreviewProps> = React.memo(props => {
@@ -160,7 +169,7 @@ const useFileStyles = makeLocalChonkyStyles(theme => ({
             shadows.push(`inset ${theme.gridFileEntry.fileColorTint} 0 0 0 999px`);
             return shadows.join(', ');
         },
-        backgroundColor: (state: FileEntryState) => state.color,
+        // backgroundColor: (state: FileEntryState) => state.color,
         borderRadius: theme.gridFileEntry.borderRadius,
         position: 'relative',
         overflow: 'hidden',
@@ -170,14 +179,16 @@ const useFileStyles = makeLocalChonkyStyles(theme => ({
     },
     fileIcon: {
         transform: 'translateX(-50%) translateY(-50%)',
-        fontSize: theme.gridFileEntry.iconSize,
+        // fontSize: theme.gridFileEntry.iconSize,
+        fontSize: '3.4em',
         opacity: (state: FileEntryState) => (state.thumbnailUrl && !state.focused ? 0 : 1),
-        color: (state: FileEntryState) =>
-            state.focused ? theme.gridFileEntry.iconColorFocused : theme.gridFileEntry.iconColor,
+        // color: (state: FileEntryState) =>
+        //     state.focused ? theme.gridFileEntry.iconColorFocused : theme.gridFileEntry.iconColor,
+        color: '#2B7DBC',
         position: 'absolute',
-        left: '50%',
+        left: 33,
         zIndex: 12,
-        top: '50%',
+        top: 38,
     },
     thumbnail: {
         borderRadius: theme.gridFileEntry.borderRadius,

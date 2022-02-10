@@ -21,13 +21,26 @@ export const FileEntryName: React.FC<FileEntryNameProps> = React.memo(({ file, c
     const fileNameComponent = useFileNameComponent(file);
 
     const classes = useStyles();
+    let fileSize = 0;
+    let fileSizeUnit = 'KB';
+    if (file && file.size) {
+        fileSize = Math.round(file.size / 1000);
+        if (fileSize === 0) {
+            fileSize = file.size;
+            fileSizeUnit = 'Bytes';
+        }
+    }
+    const fileSizeLabel = `${fileSize} ${fileSizeUnit}`;
     return (
-        <span className={className} title={file ? file.name : undefined}>
-            {modifierIconComponents.length > 0 && (
-                <span className={classes.modifierIcons}>{modifierIconComponents}</span>
-            )}
-            {fileNameComponent}
-        </span>
+        <>
+            <span className={className} title={file ? file.name : undefined}>
+                {modifierIconComponents.length > 0 && (
+                    <span className={classes.modifierIcons}>{modifierIconComponents}</span>
+                )}
+                {fileNameComponent}
+            </span>
+            {!file?.isDir && (<div className={classes.fileSize}>{fileSizeLabel}</div>)}
+        </>
     );
 });
 FileEntryName.displayName = 'FileEntryName';
@@ -39,4 +52,7 @@ const useStyles = makeLocalChonkyStyles(theme => ({
         fontSize: '0.775em',
         paddingRight: 5,
     },
+    fileSize: {
+        color: '#8186AD'
+    }
 }));
