@@ -33,8 +33,8 @@ export const GridEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
             )}
             <div className={classes.gridFileEntryNameContainer}>
                 <FileEntryName className={classes.gridFileEntryName} file={file} />
-                {entryState.childrenCount && (<div className={classes.nestedChildrenCount}>{entryState.childrenCount} items</div>)}
-                {entryState.childrenCount == 0 && (<div className={classes.nestedChildrenCount}>Empty folder</div>)}
+                {Boolean(entryState.childrenCount) && (<div className={classes.nestedChildrenCount}>{entryState.childrenCount} items</div>)}
+                {Boolean(entryState.childrenCount == 0) && (<div className={classes.nestedChildrenCount}>Empty folder</div>)}
             </div>
         </div>
     );
@@ -58,13 +58,18 @@ const useFileEntryStyles = makeLocalChonkyStyles(theme => ({
         paddingTop: 5,
     },
     gridFileEntryName: {
-        backgroundColor: (state: FileEntryState) => (state.selected ? 'rgba(0,153,255, .25)' : 'transparent'),
+        backgroundColor: 'transparent',
         textDecoration: (state: FileEntryState) => (state.focused ? 'underline' : 'none'),
         borderRadius: 3,
         padding: [2, 0],
-        marginBottom: 4,
-        display: 'inline-block',
-        fontWeight: 'bold'
+        display: '-webkit-box',
+        fontWeight: 'bold',
+        textOverflow: 'ellipsis',
+        width: 155,
+        whiteSpace: 'break-spaces',
+        '-webkit-line-clamp': 2,
+        '-webkit-box-orient': 'vertical',
+        overflow: 'hidden'
     },
     nestedChildrenCount: {
         color: '#8186AD'

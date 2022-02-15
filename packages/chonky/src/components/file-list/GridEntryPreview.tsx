@@ -13,6 +13,7 @@ import { ChonkyIconContext } from '../../util/icon-helper';
 import { c, important, makeLocalChonkyStyles } from '../../util/styles';
 import { FileThumbnail } from './FileThumbnail';
 import { GridEntryDndIndicator } from './GridEntryDndIndicator';
+import { BentoTheme } from '../../util/styles';
 
 export type FileEntryState = {
     childrenCount: Nullable<number>;
@@ -41,19 +42,11 @@ export const GridEntryPreviewFolder: React.FC<FileEntryPreviewProps> = React.mem
         [externalClassName || '']: !!externalClassName,
     });
     return (
+        <><div className={commonClasses.selectionIndicator}></div>
         <div className={className}>
-            <div className={commonClasses.selectionIndicator}></div>
             <div className={folderClasses.filerFolderIcon}></div>
-            {/* <div className={folderClasses.folderBackSideMid}> */}
-                {/* <div className={folderClasses.folderBackSideTop} /> */}
-                {/* <div className={folderClasses.folderFrontSide}> */}
-                    {/* <GridEntryDndIndicator className={fileClasses.dndIndicator} dndState={dndState} /> */}
-                    {/* <div className={c([fileClasses.fileIcon, folderClasses.fileIcon])}>{entryState.childrenCount}</div> */}
-                    {/* <div className={commonClasses.selectionIndicator}></div> */}
-                    {/* <FileThumbnail className={fileClasses.thumbnail} thumbnailUrl={entryState.thumbnailUrl} /> */}
-                {/* </div> */}
-            {/* </div> */}
         </div>
+        </>
     );
 });
 GridEntryPreviewFolder.displayName = 'GridEntryPreviewFolder';
@@ -148,28 +141,21 @@ export const GridEntryPreviewFile: React.FC<FileEntryPreviewProps> = React.memo(
         [externalClassName || '']: !!externalClassName,
     });
     return (
-        <div className={className}>
-            <GridEntryDndIndicator className={fileClasses.dndIndicator} dndState={dndState} />
-            <div className={fileClasses.fileIcon}>
-                <ChonkyIcon icon={entryState.icon} spin={entryState.iconSpin} />
+        <><div className={commonClasses.selectionIndicator}></div>
+            <div className={className}>
+                <GridEntryDndIndicator className={fileClasses.dndIndicator} dndState={dndState} />
+                {Boolean(entryState.thumbnailUrl) == false && (<div className={fileClasses.fileIcon}>
+                    <ChonkyIcon icon={entryState.icon} spin={entryState.iconSpin} />
+                </div>)}
+                <FileThumbnail className={fileClasses.thumbnail} thumbnailUrl={entryState.thumbnailUrl} />
             </div>
-            <div className={commonClasses.selectionIndicator}></div>
-            <FileThumbnail className={fileClasses.thumbnail} thumbnailUrl={entryState.thumbnailUrl} />
-        </div>
+        </>
     );
 });
 GridEntryPreviewFile.displayName = 'GridEntryPreviewFile';
 
 const useFileStyles = makeLocalChonkyStyles(theme => ({
     previewFile: {
-        boxShadow: (state: FileEntryState) => {
-            const shadows: string[] = [];
-            if (state.selected) shadows.push('inset rgba(0,153,255, .65) 0 0 0 3px');
-            if (state.focused) shadows.push('inset rgba(0, 0, 0, 1) 0 0 0 3px');
-            shadows.push(`inset ${theme.gridFileEntry.fileColorTint} 0 0 0 999px`);
-            return shadows.join(', ');
-        },
-        // backgroundColor: (state: FileEntryState) => state.color,
         borderRadius: theme.gridFileEntry.borderRadius,
         position: 'relative',
         overflow: 'hidden',
@@ -204,15 +190,16 @@ const useFileStyles = makeLocalChonkyStyles(theme => ({
 export const useCommonEntryStyles = makeLocalChonkyStyles(() => ({
     selectionIndicator: {
         display: (state: FileEntryState) => (state.selected ? 'block' : 'none'),
-        background:
-            'repeating-linear-gradient(' +
-            '45deg,' +
-            'rgba(0,153,255,.14),' +
-            'rgba(0,153,255,.14) 10px,' +
-            'rgba(0,153,255,.25) 0,' +
-            'rgba(0,153,255,.25) 20px' +
-            ')',
-        backgroundColor: 'rgba(0, 153, 255, .14)',
+        boxShadow: (state: FileEntryState) => {
+            const shadows: string[] = [];
+            if (state.selected) shadows.push('inset rgba(0,153,255, .65) 0 0 0 3px');
+            if (state.focused) shadows.push('inset rgba(0, 0, 0, 1) 0 0 0 3px');
+            shadows.push(`inset ${BentoTheme.gridFileEntry.fileColorTint} 0 0 0 999px`);
+            return shadows.join(', ');
+        },
+        borderRadius: BentoTheme.gridFileEntry.borderRadius,
+        overflow: 'hidden',
+        backgroundColor: 'rgba(0, 153, 255, .20)',
         position: 'absolute',
         height: '100%',
         width: '100%',
