@@ -79,6 +79,6 @@ const useStyles = makeGlobalChonkyStyles(() => ({
         // (which doesn't compromise accessibility, hopefully)
         outline: 'none !important',
         position: 'relative',
-        height: '100%'
+        height: '100%',
     },
 }));

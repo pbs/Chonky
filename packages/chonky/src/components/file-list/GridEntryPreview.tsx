@@ -13,7 +13,6 @@ import { ChonkyIconContext } from '../../util/icon-helper';
 import { c, important, makeLocalChonkyStyles } from '../../util/styles';
 import { FileThumbnail } from './FileThumbnail';
 import { GridEntryDndIndicator } from './GridEntryDndIndicator';
-import { BentoTheme } from '../../util/styles';
 
 export type FileEntryState = {
     childrenCount: Nullable<number>;
@@ -119,7 +118,7 @@ const useFolderStyles = makeLocalChonkyStyles(theme => ({
         top: 10,
     },
     fileIcon: {
-        fontSize: important(theme.gridFileEntry.childrenCountSize)
+        fontSize: important(theme.gridFileEntry.childrenCountSize),
     }
 }));
 
@@ -149,8 +148,15 @@ GridEntryPreviewFile.displayName = 'GridEntryPreviewFile';
 
 const useFileStyles = makeLocalChonkyStyles(theme => ({
     previewFile: {
-        borderRadius: theme.gridFileEntry.borderRadius,
+        boxShadow: (state: FileEntryState) => {
+            const shadows: string[] = [];
+            if (state.selected) shadows.push('inset rgba(0,153,255, .65) 0 0 0 3px');
+            if (state.focused) shadows.push('inset rgba(0, 0, 0, 1) 0 0 0 3px');
+            shadows.push(`inset ${theme.gridFileEntry.fileColorTint} 0 0 0 999px`);
+            return shadows.join(', ');
+        },
         backgroundColor: (state: FileEntryState) => state.color,
+        borderRadius: theme.gridFileEntry.borderRadius,
         position: 'relative',
         overflow: 'hidden',
     },
@@ -166,7 +172,7 @@ const useFileStyles = makeLocalChonkyStyles(theme => ({
         position: 'absolute',
         left: '50%',
         zIndex: 12,
-        top: '50%'
+        top: '50%',
     },
     thumbnail: {
         borderRadius: theme.gridFileEntry.borderRadius,
@@ -182,16 +188,15 @@ const useFileStyles = makeLocalChonkyStyles(theme => ({
 export const useCommonEntryStyles = makeLocalChonkyStyles(() => ({
     selectionIndicator: {
         display: (state: FileEntryState) => (state.selected ? 'block' : 'none'),
-        boxShadow: (state: FileEntryState) => {
-            const shadows: string[] = [];
-            if (state.selected) shadows.push('inset rgba(0,153,255, .65) 0 0 0 3px');
-            if (state.focused) shadows.push('inset rgba(0, 0, 0, 1) 0 0 0 3px');
-            shadows.push(`inset ${BentoTheme.gridFileEntry.fileColorTint} 0 0 0 999px`);
-            return shadows.join(', ');
-        },
-        borderRadius: BentoTheme.gridFileEntry.borderRadius,
-        overflow: 'hidden',
-        backgroundColor: 'rgba(0, 153, 255, .20)',
+        background:
+            'repeating-linear-gradient(' +
+            '45deg,' +
+            'rgba(0,153,255,.14),' +
+            'rgba(0,153,255,.14) 10px,' +
+            'rgba(0,153,255,.25) 0,' +
+            'rgba(0,153,255,.25) 20px' +
+            ')',
+        backgroundColor: 'rgba(0, 153, 255, .14)',
         position: 'absolute',
         height: '100%',
         width: '100%',

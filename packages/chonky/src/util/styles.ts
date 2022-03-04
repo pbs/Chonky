@@ -73,15 +73,6 @@ export const lightTheme = {
     },
 };
 
-export const BentoTheme = {
-    gridFileEntry: {
-        borderRadius: 5,
-        fileColorTint: 'rgba(255, 255, 255, 0)',
-        folderBackColorTint: 'rgba(255, 255, 255, 0.1)',
-        folderFrontColorTint: 'rgba(255, 255, 255, 0)',
-    }
-}
-
 export type ChonkyTheme = typeof lightTheme;
 
 export const darkThemeOverride: DeepPartial<ChonkyTheme> = {

@@ -42,5 +42,5 @@ const useStyles = makeLocalChonkyStyles(theme => ({
         position: 'relative',
         fontSize: '0.775em',
         paddingRight: 5,
-    }
+    },
 }));
