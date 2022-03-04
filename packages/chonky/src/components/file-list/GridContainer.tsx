@@ -132,8 +132,6 @@ export const GridContainer: React.FC<FileListGridProps> = React.memo(props => {
                 paddingRight: data.columnIndex === gc.current.columnCount - 1 ? 0 : gc.current.gutter,
                 paddingBottom: data.rowIndex === gc.current.rowCount - 1 ? 0 : gc.current.gutter,
                 boxSizing: 'border-box',
-                fontFamily: '"PBSSans", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif',
-                lineHeight: 1.1
             };
 
             return (

@@ -62,5 +62,5 @@ const useFileEntryStyles = makeLocalChonkyStyles(theme => ({
         textDecoration: (state: FileEntryState) => (state.focused ? 'underline' : 'none'),
         borderRadius: 3,
         padding: [2, 4],
-    }
+    },
 }));
