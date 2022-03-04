@@ -40,7 +40,7 @@ export const getGridConfig = (
     viewConfig: FileViewConfigGrid,
     isMobileBreakpoint: boolean
 ): GridConfig => {
-    const gutter = isMobileBreakpoint ? 5 : 8;
+    const gutter = isMobileBreakpoint ? 10 : 16;
     const scrollbar = isMobileDevice() ? 0 : 18;
 
     let columnCount: number;
@@ -137,7 +137,7 @@ export const GridContainer: React.FC<FileListGridProps> = React.memo(props => {
             };
 
             return (
-                <div style={styleWithGutter}>
+                <div id="chonkyCellRenderer" style={styleWithGutter}>
                     <SmartFileEntry fileId={fileId ?? null} displayIndex={index} fileViewMode={viewConfig.mode} />
                 </div>
             );

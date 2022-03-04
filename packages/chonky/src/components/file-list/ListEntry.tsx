@@ -26,6 +26,7 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(
         const { fileModDateString, fileSizeString } = useLocalizedFileEntryStrings(
             file
         );
+        const uploadedByEmail = file?.uploadedByEmail;
         const styleState = useMemo<StyleState>(
             () => ({
                 entryState,
@@ -38,15 +39,16 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(
         const ChonkyIcon = useContext(ChonkyIconContext);
         const fileEntryHtmlProps = useFileEntryHtmlProps(file);
         return (
-            <div className={classes.listFileEntry} {...fileEntryHtmlProps}>
-                <div className={commonClasses.focusIndicator}></div>
+            <div id="chonkyListFileEntry" className={classes.listFileEntry} {...fileEntryHtmlProps}>
+                <div id="chonkyFocusIndicator" className={commonClasses.focusIndicator}></div>
                 <div
+                    id="chonkySelectionIndicator"
                     className={c([
                         commonClasses.selectionIndicator,
                         classes.listFileEntrySelection,
                     ])}
                 ></div>
-                <div className={classes.listFileEntryIcon}>
+                <div id={file?.isDir ? "chonkyListDirEntryIcon" : "chonkyListFileEntryIcon"} className={classes.listFileEntryIcon}>
                     <ChonkyIcon
                         icon={dndIconName ?? entryState.icon}
                         spin={dndIconName ? false : entryState.iconSpin}
@@ -54,21 +56,29 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(
                     />
                 </div>
                 <div
+                    id="chonkyListFileEntryName"
                     className={classes.listFileEntryName}
                     title={file ? file.name : undefined}
                 >
                     <FileEntryName file={file} />
                 </div>
-                <div className={classes.listFileEntryProperty}>
+                <div id="chonkyFileModDate" className={classes.listFileEntryProperty}>
                     {file ? (
-                        fileModDateString ?? <span>—</span>
+                        fileModDateString ?? <span></span>
                     ) : (
                         <TextPlaceholder minLength={5} maxLength={15} />
                     )}
                 </div>
-                <div className={classes.listFileEntryProperty}>
+                <div id="chonkyFileSizeList" className={classes.listFileEntryProperty}>
                     {file ? (
-                        fileSizeString ?? <span>—</span>
+                        fileSizeString ?? <span></span>
+                    ) : (
+                        <TextPlaceholder minLength={10} maxLength={20} />
+                    )}
+                </div>
+                <div id="chonkyUploadedByEmail" className={classes.listFileEntryProperty}>
+                    {file?.uploadedByEmail && !file?.isDir ? (
+                        `Uploaded by: ${uploadedByEmail}`
                     ) : (
                         <TextPlaceholder minLength={10} maxLength={20} />
                     )}

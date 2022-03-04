@@ -42,9 +42,9 @@ export const GridEntryPreviewFolder: React.FC<FileEntryPreviewProps> = React.mem
         [externalClassName || '']: !!externalClassName,
     });
     return (
-        <><div className={commonClasses.selectionIndicator}></div>
+        <><div id="gridFolderSelectionIndicator" className={commonClasses.selectionIndicator}></div>
         <div className={className}>
-            <div className={folderClasses.filerFolderIcon}></div>
+            <div id="chonkyFilerFolderIcon" className={folderClasses.filerFolderIcon}></div>
         </div>
         </>
     );
@@ -119,14 +119,7 @@ const useFolderStyles = makeLocalChonkyStyles(theme => ({
         top: 10,
     },
     fileIcon: {
-        fontSize: important(theme.gridFileEntry.childrenCountSize),
-        color: '#2B7DBC'
-    },
-    filerFolderIcon: {
-        width: 61,
-        height: 50,
-        margin: '10px 0 0 10px',
-        backgroundImage: "url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjIiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA2MiA1MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTU1LjAyMTcgNi41NTcwOEgzOC4wNTYzQzM3LjI2MDEgNi41NTM2NyAzNi40OTcyIDYuMjMyNjQgMzUuOTMxOSA1LjY2MzE5TDMxLjYyMjIgMS4yODYyMkMzMS4wNTY5IDAuNzE2NzcyIDMwLjI5NCAwLjM5NTczOSAyOS40OTc4IDAuMzkyMzM0SDYuNDYyNDhDMy4xMTAxNyAwLjM5MjMzNCAwLjM5MjU3OCAzLjE1MjM4IDAuMzkyNTc4IDYuNTU3MDhWNDMuNTQ1NUMwLjM5MjU3OCA0Ni45NTAyIDMuMTEwMTcgNDkuNzEwMyA2LjQ2MjQ4IDQ5LjcxMDNINTUuMDIxN0M1OC4zNzQgNDkuNzEwMyA2MS4wOTE2IDQ2Ljk1MDIgNjEuMDkxNiA0My41NDU1VjEyLjcyMThDNjEuMDkxNiA5LjMxNzEzIDU4LjM3NCA2LjU1NzA4IDU1LjAyMTcgNi41NTcwOFoiIGZpbGw9IiMyQjdEQkMiLz4KPC9zdmc+Cg==);",
+        fontSize: important(theme.gridFileEntry.childrenCountSize)
     }
 }));
 
@@ -141,10 +134,10 @@ export const GridEntryPreviewFile: React.FC<FileEntryPreviewProps> = React.memo(
         [externalClassName || '']: !!externalClassName,
     });
     return (
-        <><div className={commonClasses.selectionIndicator}></div>
-            <div className={className}>
+        <><div id="gridFileSelectionIndicator" className={commonClasses.selectionIndicator}></div>
+            <div id="chonkyPreviewFile" className={className}>
                 <GridEntryDndIndicator className={fileClasses.dndIndicator} dndState={dndState} />
-                {Boolean(entryState.thumbnailUrl) == false && (<div className={fileClasses.fileIcon}>
+                {Boolean(entryState.thumbnailUrl) == false && (<div id="chonkyFileIcon" className={fileClasses.fileIcon}>
                     <ChonkyIcon icon={entryState.icon} spin={entryState.iconSpin} />
                 </div>)}
                 <FileThumbnail className={fileClasses.thumbnail} thumbnailUrl={entryState.thumbnailUrl} />
@@ -157,6 +150,7 @@ GridEntryPreviewFile.displayName = 'GridEntryPreviewFile';
 const useFileStyles = makeLocalChonkyStyles(theme => ({
     previewFile: {
         borderRadius: theme.gridFileEntry.borderRadius,
+        backgroundColor: (state: FileEntryState) => state.color,
         position: 'relative',
         overflow: 'hidden',
     },
@@ -165,16 +159,14 @@ const useFileStyles = makeLocalChonkyStyles(theme => ({
     },
     fileIcon: {
         transform: 'translateX(-50%) translateY(-50%)',
-        // fontSize: theme.gridFileEntry.iconSize,
-        fontSize: '3.4em',
+        fontSize: theme.gridFileEntry.iconSize,
         opacity: (state: FileEntryState) => (state.thumbnailUrl && !state.focused ? 0 : 1),
-        // color: (state: FileEntryState) =>
-        //     state.focused ? theme.gridFileEntry.iconColorFocused : theme.gridFileEntry.iconColor,
-        color: '#2B7DBC',
+        color: (state: FileEntryState) =>
+            state.focused ? theme.gridFileEntry.iconColorFocused : theme.gridFileEntry.iconColor,
         position: 'absolute',
-        left: 33,
+        left: '50%',
         zIndex: 12,
-        top: 38,
+        top: '50%'
     },
     thumbnail: {
         borderRadius: theme.gridFileEntry.borderRadius,

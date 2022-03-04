@@ -15,9 +15,10 @@ export const GridEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
     const fileEntryHtmlProps = useFileEntryHtmlProps(file);
     const entryClassName = c({
         [classes.gridFileEntry]: true,
+        "chonkyGridDirEntry": isDirectory ? true: false
     });
     return (
-        <div className={entryClassName} {...fileEntryHtmlProps}>
+        <div id="chonkyGridEntry" className={entryClassName} {...fileEntryHtmlProps}>
             {isDirectory ? (
                 <GridEntryPreviewFolder
                     className={classes.gridFileEntryPreview}
@@ -31,10 +32,10 @@ export const GridEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
                     dndState={dndState}
                 />
             )}
-            <div className={classes.gridFileEntryNameContainer}>
+            <div id="chonkyGridFileEntryNameContainer" className={classes.gridFileEntryNameContainer}>
                 <FileEntryName className={classes.gridFileEntryName} file={file} />
-                {Boolean(entryState.childrenCount) && (<div className={classes.nestedChildrenCount}>{entryState.childrenCount} items</div>)}
-                {Boolean(entryState.childrenCount == 0) && (<div className={classes.nestedChildrenCount}>Empty folder</div>)}
+                {Boolean(entryState.childrenCount) && (<div id="chonkyNestedChildrenCount" className={classes.nestedChildrenCount}>{entryState.childrenCount} items</div>)}
+                {Boolean(entryState.childrenCount == 0) && (<div id="chonkyNestedChildrenCount" className={classes.nestedChildrenCount}>Empty folder</div>)}
             </div>
         </div>
     );
@@ -45,7 +46,7 @@ const useFileEntryStyles = makeLocalChonkyStyles(theme => ({
     gridFileEntry: {
         flexDirection: 'column',
         display: 'flex',
-        height: '93%',
+        height: '100%',
     },
     gridFileEntryPreview: {
         flexGrow: 1,
@@ -53,25 +54,13 @@ const useFileEntryStyles = makeLocalChonkyStyles(theme => ({
     gridFileEntryNameContainer: {
         fontSize: theme.gridFileEntry.fontSize,
         wordBreak: 'break-word',
-        textAlign: 'left',
-        marginLeft: 10,
+        textAlign: 'center',
         paddingTop: 5,
     },
     gridFileEntryName: {
         backgroundColor: 'transparent',
         textDecoration: (state: FileEntryState) => (state.focused ? 'underline' : 'none'),
         borderRadius: 3,
-        padding: [2, 0],
-        display: '-webkit-box',
-        fontWeight: 'bold',
-        textOverflow: 'ellipsis',
-        width: 155,
-        whiteSpace: 'break-spaces',
-        '-webkit-line-clamp': 2,
-        '-webkit-box-orient': 'vertical',
-        overflow: 'hidden'
-    },
-    nestedChildrenCount: {
-        color: '#8186AD'
+        padding: [2, 4]
     }
 }));
