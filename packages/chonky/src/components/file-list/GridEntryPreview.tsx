@@ -43,6 +43,7 @@ export const GridEntryPreviewFolder: React.FC<FileEntryPreviewProps> = React.mem
     return (
         <><div id="gridFolderSelectionIndicator" className={commonClasses.selectionIndicator}></div>
         <div className={className}>
+            <GridEntryDndIndicator className={fileClasses.dndIndicator} dndState={dndState} />
             <div id="chonkyFilerFolderIcon" className={folderClasses.filerFolderIcon}></div>
         </div>
         </>
