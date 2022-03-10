@@ -77,7 +77,7 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(
                     )}
                 </div>
                 <div id="chonkyUploadedByEmail" className={classes.listFileEntryProperty}>
-                    {file?.uploadedByEmail && !file?.isDir ? (
+                    {file?.uploadedByEmail ? (
                         `Uploaded by: ${uploadedByEmail}`
                     ) : (
                         <TextPlaceholder minLength={10} maxLength={20} />
