@@ -21,13 +21,17 @@ export const FileEntryName: React.FC<FileEntryNameProps> = React.memo(({ file, c
     const fileNameComponent = useFileNameComponent(file);
 
     const classes = useStyles();
+    const friendlySize = file?.friendlySize ? file?.friendlySize : '';
     return (
-        <span className={className} title={file ? file.name : undefined}>
-            {modifierIconComponents.length > 0 && (
-                <span className={classes.modifierIcons}>{modifierIconComponents}</span>
-            )}
-            {fileNameComponent}
-        </span>
+        <>
+            <span id="chonkyGridFileEntryName" className={className} title={file ? file.name : undefined}>
+                {modifierIconComponents.length > 0 && (
+                    <span className={classes.modifierIcons}>{modifierIconComponents}</span>
+                )}
+                {fileNameComponent}
+            </span>
+            {!file?.isDir && (<div id="chonkyFileSize" className={classes.fileSize}>{friendlySize}</div>)}
+        </>
     );
 });
 FileEntryName.displayName = 'FileEntryName';

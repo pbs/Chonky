@@ -25,6 +25,7 @@ export const TextPlaceholder: React.FC<TextPlaceholderProps> = React.memo(props 
     const classes = useStyles();
     return (
         <span
+            id="chonkyTextPlaceholder"
             className={classes.textPlaceholder}
             dangerouslySetInnerHTML={{ __html: whitespace }}
         />

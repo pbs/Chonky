@@ -15,9 +15,10 @@ export const GridEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
     const fileEntryHtmlProps = useFileEntryHtmlProps(file);
     const entryClassName = c({
         [classes.gridFileEntry]: true,
+        "chonkyGridDirEntry": isDirectory ? true: false
     });
     return (
-        <div className={entryClassName} {...fileEntryHtmlProps}>
+        <div id="chonkyGridEntry" className={entryClassName} {...fileEntryHtmlProps}>
             {isDirectory ? (
                 <GridEntryPreviewFolder
                     className={classes.gridFileEntryPreview}
@@ -31,8 +32,10 @@ export const GridEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
                     dndState={dndState}
                 />
             )}
-            <div className={classes.gridFileEntryNameContainer}>
+            <div id="chonkyGridFileEntryNameContainer" className={classes.gridFileEntryNameContainer}>
                 <FileEntryName className={classes.gridFileEntryName} file={file} />
+                {Boolean(entryState.childrenCount) && (<div id="chonkyNestedChildrenCount" className={classes.nestedChildrenCount}>{entryState.childrenCount} items</div>)}
+                {Boolean(entryState.childrenCount == 0) && (<div id="chonkyNestedChildrenCount" className={classes.nestedChildrenCount}>Empty folder</div>)}
             </div>
         </div>
     );

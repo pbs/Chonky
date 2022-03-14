@@ -41,17 +41,12 @@ export const GridEntryPreviewFolder: React.FC<FileEntryPreviewProps> = React.mem
         [externalClassName || '']: !!externalClassName,
     });
     return (
+        <><div id="gridFolderSelectionIndicator" className={commonClasses.selectionIndicator}></div>
         <div className={className}>
-            <div className={folderClasses.folderBackSideMid}>
-                <div className={folderClasses.folderBackSideTop} />
-                <div className={folderClasses.folderFrontSide}>
-                    <GridEntryDndIndicator className={fileClasses.dndIndicator} dndState={dndState} />
-                    <div className={c([fileClasses.fileIcon, folderClasses.fileIcon])}>{entryState.childrenCount}</div>
-                    <div className={commonClasses.selectionIndicator}></div>
-                    <FileThumbnail className={fileClasses.thumbnail} thumbnailUrl={entryState.thumbnailUrl} />
-                </div>
-            </div>
+            <GridEntryDndIndicator className={fileClasses.dndIndicator} dndState={dndState} />
+            <div id="chonkyFilerFolderIcon" className={folderClasses.filerFolderIcon}></div>
         </div>
+        </>
     );
 });
 GridEntryPreviewFolder.displayName = 'GridEntryPreviewFolder';
@@ -125,7 +120,7 @@ const useFolderStyles = makeLocalChonkyStyles(theme => ({
     },
     fileIcon: {
         fontSize: important(theme.gridFileEntry.childrenCountSize),
-    },
+    }
 }));
 
 export const GridEntryPreviewFile: React.FC<FileEntryPreviewProps> = React.memo(props => {
@@ -139,14 +134,15 @@ export const GridEntryPreviewFile: React.FC<FileEntryPreviewProps> = React.memo(
         [externalClassName || '']: !!externalClassName,
     });
     return (
-        <div className={className}>
-            <GridEntryDndIndicator className={fileClasses.dndIndicator} dndState={dndState} />
-            <div className={fileClasses.fileIcon}>
-                <ChonkyIcon icon={entryState.icon} spin={entryState.iconSpin} />
+        <><div id="gridFileSelectionIndicator" className={commonClasses.selectionIndicator}></div>
+            <div id="chonkyPreviewFile" className={className}>
+                <GridEntryDndIndicator className={fileClasses.dndIndicator} dndState={dndState} />
+                {Boolean(entryState.thumbnailUrl) == false && (<div id="chonkyFileIcon" className={fileClasses.fileIcon}>
+                    <ChonkyIcon icon={entryState.icon} spin={entryState.iconSpin} />
+                </div>)}
+                <FileThumbnail className={fileClasses.thumbnail} thumbnailUrl={entryState.thumbnailUrl} />
             </div>
-            <div className={commonClasses.selectionIndicator}></div>
-            <FileThumbnail className={fileClasses.thumbnail} thumbnailUrl={entryState.thumbnailUrl} />
-        </div>
+        </>
     );
 });
 GridEntryPreviewFile.displayName = 'GridEntryPreviewFile';
